@@ -11,4 +11,4 @@ from builtins import str
 def getDataFromMachine():
     cmu=psutil.virtual_memory()
     str(cmu).split(",")
-    return cmu[2]
+    return float(cmu[2])

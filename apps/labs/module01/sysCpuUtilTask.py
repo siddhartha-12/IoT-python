@@ -7,6 +7,6 @@ import psutil
 
 def getDataFromMachine():
     cpup=psutil.cpu_percent(2)
-    return cpup
+    return float(cpup)
 
 

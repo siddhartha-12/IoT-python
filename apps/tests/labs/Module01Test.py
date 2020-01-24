@@ -1,6 +1,6 @@
 import unittest
-
-
+from labs.module01 import sysMemUtilTask,sysCpuUtilTask
+from labs.module01 import SystemPerformanceAdaptor
 """
 Test class for all requisite Module01 functionality.
 
@@ -33,9 +33,37 @@ class Module01Test(unittest.TestCase):
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
-		pass
+	"""
+	Testing working of SystemAdapterRun run() method.
+	"""
+	def testSystemAdapterRun(self):
+		self.assertEqual(True,SystemPerformanceAdaptor.run() , "SystemPerformanceAdapter run() not working. The method did not return True")	
+	
+	"""
+	Testing CPU Utilization parameter. Valid parameter should be equal or between 0 and 100
+	"""
+	def testCpuUtilUpperLimitTest(self):
+		#self.assertTrue(100<=sysCpuUtilTask.getDataFromMachine()>=0, )
+		self.assertGreaterEqual(100, sysCpuUtilTask.getDataFromMachine(), "CPU utilization should not be greater than 100.")
+		
+	def testCpuUtilLowerLimitTest(self):
+		#self.assertTrue(100<=sysCpuUtilTask.getDataFromMachine()>=0, )
+		self.assertGreaterEqual(sysCpuUtilTask.getDataFromMachine(), 0,"CPU utilization should not be less than 0.")	
+	
+	
+	"""
+	Testing Memory Utilization parameter. Valid parameter should be equal or between 0 and 100
+	"""	
+	def testMemUtilUpperLimitTest(self):
+		self.assertGreaterEqual(float(100),sysMemUtilTask.getDataFromMachine(), "Memory utilization parameter should not be greater than 100")
 
+	def testMemUtilLowerLimitTest(self):
+		self.assertGreaterEqual(sysMemUtilTask.getDataFromMachine(),float(0), "Memory utilization parameter should not be less than 0")
+
+	
+
+		
+	
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']
 	unittest.main()

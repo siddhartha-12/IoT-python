@@ -13,4 +13,4 @@ def run():
     logging.info("Memory Utilization :" +str(mem) +"%")
     logging.info("Cpu Utilization    :"+ str(cpu) +"%")
 
-    
+    return True
