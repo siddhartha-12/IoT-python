@@ -10,7 +10,7 @@ from builtins import str
 def run():
     mem = sysMemUtilTask.getDataFromMachine()
     cpu = sysCpuUtilTask.getDataFromMachine()
-    logging.info("Memory Utilization :" +str(mem) +"%")
-    logging.info("Cpu Utilization    :"+ str(cpu) +"%")
+    logging.info("Memory Utilization :" +str(mem) +"%") #Logging memory Utilization
+    logging.info("Cpu Utilization    :"+ str(cpu) +"%") #Logging CPU utilization
 
     return True
