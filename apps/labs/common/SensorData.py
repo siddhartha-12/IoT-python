@@ -18,6 +18,7 @@ class SensorData :
         #self.getCurrentValue()
         
     def addValue(self,current):
+        self.timestamp = str(datetime.now());
         if(self.total_value != 0):
             self.total_value += current
             

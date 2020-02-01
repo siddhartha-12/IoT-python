@@ -5,7 +5,6 @@ Created on Jan 30, 2020
 '''
 from labs.module02.TempSensorEmulatorTask import TempSensorEmulatorTask
 import logging
-import threading
 from time import sleep
 
 class TempEmulatorAdaptor:

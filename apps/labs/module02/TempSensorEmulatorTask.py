@@ -34,5 +34,5 @@ class TempSensorEmulatorTask :
             logging.info('Current temp exceeds average beyond ' + str(self.threshold) + '. Triggering alert...')
             mail = SmtpClientConnector()
             data = "Temperature Exceeded Warning!\n \nTemperature: \nTime: "+str(self.sensor.timestamp)+"\ncurrent : "+str(self.currentTemp) +"\nAverage :"+str(self.avgTemp)+"\nSamples :"+str(self.readings)+"\nMin: "+str(self.minTemp)+"\nMax :"+str(self.maxTemp)
-            mail.publishMessage("Temperature Alert", data)
+            mail.publishMessage("Temperature Alert Python", data)
             logging.info('\nMail sent')
