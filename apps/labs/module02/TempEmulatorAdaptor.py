@@ -9,13 +9,10 @@ from time import sleep
 
 class TempEmulatorAdaptor:
     def run(self):
-        #print("Starting at console")
         logging.info("Starting application")
         tempTask = TempSensorEmulatorTask()
-        #tempTask.sendNotification()
         i = 0;
-#         t1 = threading.Thread(tempTask.sendNotification())
-#         t1.start()
+        #Creating a while loop for taking 10 reading
         while(i<11):
             tempTask.sendNotification()
             i+=1

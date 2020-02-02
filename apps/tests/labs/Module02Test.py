@@ -1,5 +1,6 @@
 import unittest
-
+from labs.module02.TempSensorEmulatorTask import TempSensorEmulatorTask
+from labs.module02.SmtpClientConnector import SmtpClientConnector
 
 """
 Test class for all requisite Module02 functionality.
@@ -13,6 +14,7 @@ Instructions:
 
 Please note: While some example test cases may be provided, you must write your own for the class.
 """
+
 class Module02Test(unittest.TestCase):
 
 	"""
@@ -21,6 +23,10 @@ class Module02Test(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.emu = TempSensorEmulatorTask();
+		self.smtp = SmtpClientConnector();
+		self.config = "../../../config/ConnectedDevicesConfig.props"
+		self.tempSensor = TempSensorEmulatorTask();
 		pass
 
 	"""
@@ -32,10 +38,33 @@ class Module02Test(unittest.TestCase):
 	
 	"""
 	Place your comments describing the test here.
-	"""
+	
 	def testSomething(self):
 		pass
-
+	"""
+	'@Test'
+	#Testing Lower bound of sensor data
+	def testgetData(self):
+		self.assertGreaterEqual(self.emu.getSensorData(), 0,"Sensor temp less than 0") 
+		pass
+	# Testing SMTP connection and test mail 
+	def testSmtpData(self):
+		self.assertTrue(self.smtp.publishMessage("Python Unit Test check", "If you are receiving this mail then the python smtp test successful"),"Issue in mail server") 
+		pass
+	# Testing data generation from emulator task
+	def testSensorEmulatorTask(self):
+		self.assertIsNotNone(self.tempSensor.getSensorData(),"Generated data from getSensordata()") 
+		pass
+	
+	# Testing send notification method
+	def testSendNotification(self):
+		self.assertIsNotNone(self.tempSensor.sendNotification(),"Generated data from getdata()") 
+		pass
+	# Testing sensor emulator upper bounds
+	def testSensorEmulatorTaskUpperBound(self):
+		self.assertGreaterEqual(30,self.tempSensor.getSensorData(),"Generated data from Sensor if greater than 30") 
+		pass
+	
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']
 	unittest.main()

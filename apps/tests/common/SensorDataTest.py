@@ -1,4 +1,5 @@
 import unittest
+from labs.common.SensorData import SensorData
 
 
 """
@@ -20,7 +21,10 @@ class SensorDataTest(unittest.TestCase):
 	information (if needed), initialize class-scoped variables, create class-scoped
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
+	
 	def setUp(self):
+		self.sensor = SensorData()
+		self.sensor.addValue(11)
 		pass
 
 	"""
@@ -35,7 +39,33 @@ class SensorDataTest(unittest.TestCase):
 	"""
 	def testSomething(self):
 		pass
-
+	
+	'@Test'
+	def testgetCurrent(self):
+		self.assertGreaterEqual(self.sensor.getCurrentValue(),0.0,'Current temperature coming less than 0')
+		pass
+	
+	'@Test'
+	def testgetAvg(self):
+		self.assertGreaterEqual(self.sensor.getAverageValue(),0.0,'Avg coming less than 0')
+		pass
+	
+	'@Test'
+	def testgetMin(self):
+		self.assertGreaterEqual(self.sensor.getMinValue(),0.0,'Min coming less than 0')
+		pass
+		
+	'@Test'
+	def testgetMax(self):
+		self.assertGreaterEqual(self.sensor.getMaxValue(),0.0,'Max coming less than 0')
+		pass
+	
+	'@Test'
+	def testgetCount(self):
+		self.assertGreaterEqual(self.sensor.getCount(),0.0,'sample count coming less than 0')
+		pass
+		
+		
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']
 	unittest.main()

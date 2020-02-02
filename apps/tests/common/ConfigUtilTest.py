@@ -1,5 +1,5 @@
 import unittest
-
+from labs.common.ConfigUtil import ConfigUtil
 
 """
 Test class for the ConfigUtil module.
@@ -13,6 +13,7 @@ Instructions:
 
 Please note: While some example test cases may be provided, you must write your own for the class.
 """
+from test.test_binop import isint
 class ConfigUtilTest(unittest.TestCase):
 
 	"""
@@ -21,8 +22,8 @@ class ConfigUtilTest(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
-		#self.configUtil = ConfigUtil()
-		#self.configUtil.loadConfig()
+		self.configUtil = ConfigUtil()
+		self.configUtil.loadConfig("../../../config/ConnectedDevicesConfig.props")
 		pass
 
 	"""
@@ -44,6 +45,7 @@ class ConfigUtilTest(unittest.TestCase):
 	"""
 	def testGetIntegerProperty(self):
 		# TODO: implement this
+		self.assertTrue(isint(int(self.configUtil.getValue("smtp.cloud", "port"))),"Returned "+ str(type(self.configUtil.getValue("smtp.cloud", "port"))) )
 		pass
 	
 	"""
@@ -51,6 +53,7 @@ class ConfigUtilTest(unittest.TestCase):
 	"""
 	def testGetProperty(self):
 		# TODO: implement this
+		self.assertEqual("smtp.gmail.com",self.configUtil.getValue("smtp.cloud", "host"),"No value returned")
 		pass
 	
 	"""
@@ -58,12 +61,15 @@ class ConfigUtilTest(unittest.TestCase):
 	"""
 	def testHasProperty(self):
 		# TODO: implement this
+		
+		self.assertTrue(self.configUtil.cp.has_option("smtp.cloud", "host"),"No value returned")
 		pass
 
 	"""
 	Tests if a section exists.
 	"""
 	def testHasSection(self):
+		self.assertTrue(self.configUtil.cp.has_section("smtp.cloud"),"No sections present")
 		# TODO: implement this
 		pass
 	
@@ -71,10 +77,10 @@ class ConfigUtilTest(unittest.TestCase):
 	Tests if the configuration is loaded.
 	"""
 	def testIsConfigDataLoaded(self):
-		#if self.configUtil.isConfigDataLoaded():
-		#	pass
-		#else:
-		#	self.fail("Configuration data not loaded.")
+		if self.configUtil.hasConfigData():
+			pass
+		else:
+			self.fail("Configuration data not loaded.")
 		pass
 	
 if __name__ == "__main__":
