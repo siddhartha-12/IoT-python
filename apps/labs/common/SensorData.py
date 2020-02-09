@@ -9,6 +9,7 @@ from _datetime import datetime
 class SensorData :
 
     def __init__(self):
+        self.current = 0
         self.max_value = 0
         self.min_value = 0
         self.readings_number = 0
@@ -19,6 +20,7 @@ class SensorData :
     
     #Adding current value to the total value and updating other parameters    
     def addValue(self,current):
+        self.current = current
         self.timestamp = str(datetime.now());
         self.readings_number += 1
         if(self.total_value != 0):
@@ -45,10 +47,8 @@ class SensorData :
     
     #Getter to current value
     def getCurrentValue(self):
-        current = random.randrange(0,30)
+        return self.current
         
-        self.addValue(current)
-        return current
     
     #Getter to fetch max   
     def getMaxValue(self):
