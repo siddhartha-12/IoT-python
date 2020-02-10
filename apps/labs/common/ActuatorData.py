@@ -8,7 +8,7 @@ from _datetime import datetime
 
 
 class ActuatorData :
-
+    #Default Constructor
     def __init__(self):
         self.max_value = 0
         self.min_value = 0
@@ -19,25 +19,42 @@ class ActuatorData :
         self.value = 0.0
         self.name = ""
         self.avgTemp = 0.0
-        
+    
+    #Getter for reading counts    
+    def getCount(self):
+        return self.readings_number
+    
+    #Getter for Minimum value
+    def getMivValue(self):
+        return self.min_value
+    
+    #Getter for maximum count
+    def getMaxValue(self):
+        return self.max_value 
+    
+    #Getter for average count    
     def getAverageValue(self):
         return(self.total_value / self.readings_number)
     
+    #Getter for Command value
     def getCommand(self): #Returns String commands example Increase Temp
         return self.command
-       
+    
+    #Getter for getting current actuator value   
     def getValue(self): #Returns the current value
         return self.value    
 
+    #Getter for Sensor name
     def getName(self): # Returns the name of the sensor as a String
         return self.name
-    
+    #Setter for sensor name
     def setName(self,name):
         self.name = name
-    
+    #Setter for command field
     def setCommand(self,command):
         self.command = command
     
+    #Method for adding value to the total
     def addValue(self,current):
         self.value = current
         self.timestamp = str(datetime.now());
@@ -54,7 +71,3 @@ class ActuatorData :
             self.total_value = current
             self.max_value = current
             self.min_value = current
-        
-    
-       
-               

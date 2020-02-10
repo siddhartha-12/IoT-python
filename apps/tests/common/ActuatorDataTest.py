@@ -1,5 +1,5 @@
 import unittest
-
+from labs.common.ActuatorData import ActuatorData
 
 """
 Test class for all requisite ActuatorData functionality.
@@ -21,6 +21,9 @@ class ActuatorDataTest(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.sensor = ActuatorData()
+		self.sensor.addValue(11)
+		self.sensor.setCommand("Temp")
 		pass
 
 	"""
@@ -34,6 +37,36 @@ class ActuatorDataTest(unittest.TestCase):
 	Place your comments describing the test here.
 	"""
 	def testSomething(self):
+		pass
+	
+	'@Test'
+	def testgetCurrent(self):
+		self.assertGreaterEqual(self.sensor.getValue(),0.0,'Current temperature value coming less than 0')
+		pass
+	
+	'@Test'
+	def testgetAvg(self):
+		self.assertGreaterEqual(self.sensor.getAverageValue(),0.0,'Avg coming less than 0')
+		pass
+	
+	'@Test'
+	def testgetMin(self):
+		self.assertGreaterEqual(self.sensor.getMivValue(),0.0,'Min coming less than 0')
+		pass
+		
+	'@Test'
+	def testgetMax(self):
+		self.assertGreaterEqual(self.sensor.getMaxValue(),0.0,'Max coming less than 0')
+		pass
+	
+	'@Test'
+	def testgetCount(self):
+		self.assertGreaterEqual(self.sensor.getCount(),0.0,'sample count coming less than 0')
+		pass
+	
+	'@Test'
+	def testgetCommand(self):
+		self.assertEqual(self.sensor.getCommand(), "Temp", "Returned value did not match")
 		pass
 
 if __name__ == "__main__":

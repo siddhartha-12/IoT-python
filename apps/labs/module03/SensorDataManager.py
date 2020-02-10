@@ -8,6 +8,7 @@ from labs.common.ConfigUtil import ConfigUtil
 
 
 class SensorDataManager:
+    #Default Constructor
     def __init__(self):
         self.actuator = ActuatorData();
         self.sensorAdaptor = TempSensorAdaptor()
@@ -19,7 +20,7 @@ class SensorDataManager:
     def run(self):
         
         self.sensorAdaptor.getSensorData()
-        
+    #Method for evaluating the sensor values and create decision for actation  
     def hadleSensorData(self,SensorData):
         self.actuator.max_value = SensorData.max_value
         self.actuator.min_value = SensorData.min_value
@@ -29,15 +30,15 @@ class SensorDataManager:
         self.actuator.total_value = SensorData.total_value
         if(self.threshold>self.actuator.value):
             self.actuator.setCommand("Raise Temp")
-            self.sendNotification()
         elif(self.threshold<self.actuator.value):
             self.actuator.setCommand("Decrease Temp")
         elif(self.threshold==self.actuator.value):
             self.actuator.setCommand("Temp Stable")
         self.actuatorOP.updateActuator(self.actuator)
         self.sendNotification()
+        return True
     
-     #Testing if the nominal temperature has been breached. If breached a mail has been triggered
+     #Triggering mail based on the command value. The mail contains the relevant information.
     def sendNotification(self):
         
         try:

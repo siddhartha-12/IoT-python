@@ -15,16 +15,18 @@ class TempSensorAdaptorTask:
             self.readSensorValue()
             sleep(10)
             i+=1
-        
+            
+    #Default Constructor    
     def __init__(self):
         self.sensor = SenseHat()
         self.sensorData = SensorData()
         
-        
+    #Method for fetching the sensor value from senseHat module   
     def readSensorValue(self):
         temp = self.sensor.get_temperature()
         self.sensorData.addValue(temp)
         self.sdm = SensorDataManager.SensorDataManager()
         self.sdm.hadleSensorData(self.sensorData)
+        return self.sensorData.current
         
     

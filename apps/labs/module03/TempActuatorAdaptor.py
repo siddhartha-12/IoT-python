@@ -6,13 +6,20 @@ from labs.module03.SenseHatLedActivator import SenseHatLedActivator
 
 #Provide output to senseHat
 class TempActuatorAdaptor:
-
+    #Default Constructor
     def __init__(self):
         self.actuator = ActuatorData()
         
-    
-    def updateActuator(self,Actuator):
+    #Updating the actuator data and generating the message body for the led matrix
+    def updateActuator(self,ActuatorData):
         hat = SenseHatLedActivator()
-        hat.updateLed(Actuator.getCommand())
+        if(ActuatorData.value>20):
+            symbol = " /|\\  :\\"
+        elif(ActuatorData.value<20):
+            symbol = " \\|/  :/"
+        elif(ActuatorData.value==20):
+            symbol = " -- -- :)"
+        message = "Current Temp " + str(ActuatorData.value) + symbol
+        hat.updateLed(message)
         return True
     
