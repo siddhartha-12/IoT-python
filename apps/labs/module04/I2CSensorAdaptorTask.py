@@ -25,7 +25,7 @@ class I2CSensorAdaptorTask:
         
     def objectLoader(self):
         self.sensorData = SensorData()
-        self.sensorData.setName("HumiditySenseHat")
+        self.sensorData.setName("HumidityI2C")
         self.sdm = SensorDataManager.SensorDataManager()    
         
     def displayHumidityData(self):
