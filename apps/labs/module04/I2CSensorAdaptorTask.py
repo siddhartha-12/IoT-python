@@ -21,7 +21,7 @@ class I2CSensorAdaptorTask:
         self.i2cBus = smbus.SMBus(1)
         self.humidAddr = 0x5F # address for humidity sensor
         self.bits = 8
-        self.initI2CBus()
+        
         self.i2cBus.write_byte_data(self.humidAddr, 0, 0)
         
     def objectLoader(self):
