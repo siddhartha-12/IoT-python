@@ -3,7 +3,7 @@
 from labs.common.ActuatorData import ActuatorData
 from labs.module04.SenseHatLedActivator import SenseHatLedActivator 
 from builtins import staticmethod
-
+import logging
 
 #Provide output to senseHat
 class MultiActuatorAdaptor:
@@ -31,6 +31,7 @@ class MultiActuatorAdaptor:
             self.HumiditySenseHat = str(ActuatorData.getValue())
             #print("Actuator Name "+ str(ActuatorData.getValue()))
         message = "Temp -> I2C =" + self.Humidityi2cdata + " SenseHat ="+ self.HumiditySenseHat
+        logging.info(message)
         #print("msg : " +message)
         self.hat.updateLed(message)
         return True
