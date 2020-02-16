@@ -2,16 +2,25 @@
 # true on successful actuation; false otherwise.
 from labs.common.ActuatorData import ActuatorData
 from labs.module04.SenseHatLedActivator import SenseHatLedActivator 
+from builtins import staticmethod
 
 
 #Provide output to senseHat
 class MultiActuatorAdaptor:
     #Default Constructor
+    __instance = None
+    @staticmethod
+    def getInstance():
+        if MultiActuatorAdaptor.__instance == None:
+            MultiActuatorAdaptor()
+        return MultiActuatorAdaptor.__instance
+    
     def __init__(self):
+        MultiActuatorAdaptor.__instance = self
         self.actuator = ActuatorData()
         self.Humidityi2cdata = ""
         self.HumiditySenseHat = ""
-        self.hat = SenseHatLedActivator()
+        self.hat = SenseHatLedActivator()       
         
     #Updating the actuator data and generating the message body for the led matrix
     def updateActuator(self,ActuatorData):

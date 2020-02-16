@@ -15,7 +15,7 @@ class SensorDataManager:
         self.config = ConfigUtil()
         self.config.loadConfig("../../../config/ConnectedDevicesConfig.props")
         self.threshold = float(self.config.getValue("device", "nominalTemp"))
-        self.actuatorOP = MultiActuatorAdaptor()
+        self.actuatorOP = MultiActuatorAdaptor.getInstance()
         
     def run(self):
         
