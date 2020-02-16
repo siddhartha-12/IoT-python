@@ -5,10 +5,6 @@ from labs.module04 import SensorDataManager
 #import threading
 from time import sleep
 
-from pip._internal import self_outdated_check
-
-
-
 class HumiditySensorAdaptorTask:
     
     #Default Constructor    
