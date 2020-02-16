@@ -44,14 +44,14 @@ class I2CSensorAdaptorTask:
         valH1T1a  = self.i2cBus.read_byte_data(self.humidAddr, 0x3A)
         valH1T1b  = self.i2cBus.read_byte_data(self.humidAddr, 0x3B)
         H1_TO_OUT   = (valH1T1b<<self.bits ) | valH1T1a
-        if H0_T0_OUT & (1 << 16 - 1):
-            H0_T0_OUT -= (1 << 16)
+        if H1_TO_OUT & (1 << 16 - 1):
+            H1_TO_OUT -= (1 << 16)
         #print("H1_T0_OUT = " + str(H1_TO_OUT))         
         rawH1T1a  = self.i2cBus.read_byte_data(self.humidAddr, 0x28)
         rawH1T1b  = self.i2cBus.read_byte_data(self.humidAddr, 0x29)
         H_T_OUT   = (rawH1T1b<<self.bits) | rawH1T1a
-        if H0_T0_OUT & (1 << 16 - 1):
-            H0_T0_OUT -= (1 << 16)
+        if H_T_OUT & (1 << 16 - 1):
+            H_T_OUT -= (1 << 16)
         hper =  float(((H1_rH-H0_rH)*(H_T_OUT-H0_T0_OUT))/(H1_TO_OUT-H0_T0_OUT))+H0_rH
         self.sensorData.addValue(hper)
         return self.sensorData.current
