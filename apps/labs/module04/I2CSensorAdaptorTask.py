@@ -22,12 +22,12 @@ class I2CSensorAdaptorTask:
         self.humidAddr = 0x5F # address for humidity sensor
         self.bits = 8
         self.i2cBus.write_byte_data(self.humidAddr, 0, 0)
-        
+    #Method to implement lazy object initialization    
     def objectLoader(self):
         self.sensorData = SensorData()
         self.sensorData.setName("HumidityI2C")
         self.sdm = SensorDataManager.SensorDataManager()    
-        
+    #Method for fetching the sensor value from senseHat I2C module     
     def displayHumidityData(self):
         coeffH0 = self.i2cBus.read_byte_data(self.humidAddr, 0x30)
         coeffH1 = self.i2cBus.read_byte_data(self.humidAddr, 0x31)
@@ -56,7 +56,7 @@ class I2CSensorAdaptorTask:
         self.sensorData.addValue(hper)
         return self.sensorData.current
         #print("I2C Humidity = " + str(Ih) + "%")
-    
+    #Method to push data to SensorDataManger
     def pushData(self):
         self.sdm.hadleSensorData(self.sensorData)
             

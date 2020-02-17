@@ -12,7 +12,7 @@ class HumiditySensorAdaptorTask:
         self.sensor = SenseHat()
         self.sensorData = None
         self.sdm = None
-        
+    #Method to implement lazy object initialization     
     def objectLoader(self):
         self.sensorData = SensorData()
         self.sensorData.setName("HumiditySenseHat")
@@ -23,7 +23,7 @@ class HumiditySensorAdaptorTask:
         humidity = self.sensor.get_humidity()
         self.sensorData.addValue(humidity)
         return self.sensorData.current
-    
+    #Method to push the data to sensorDataManager
     def pushData(self):
         self.sdm.hadleSensorData(self.sensorData)
         return True

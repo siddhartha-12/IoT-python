@@ -9,6 +9,7 @@ import logging
 class MultiActuatorAdaptor:
     #Default Constructor
     __instance = None
+    #Implementing Singleton
     @staticmethod
     def getInstance():
         if MultiActuatorAdaptor.__instance == None:
