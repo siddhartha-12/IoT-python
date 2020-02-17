@@ -11,7 +11,7 @@ class MultiSensorAdaptor :
     #Default Constructor
     def __init__(self):
         self.sreader = HumiditySensorAdaptorTask() 
-        self.ireader = I2CSensorAdaptorTask()
+        #self.ireader = I2CSensorAdaptorTask()
         
 
     #Fetch current readings from the sensor

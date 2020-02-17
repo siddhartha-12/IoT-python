@@ -30,7 +30,7 @@ class SensorDataManager:
         self.actuator.total_value = SensorData.total_value
         self.actuator.setName(SensorData.getName())      
         self.actuatorOP.updateActuator(self.actuator)
-        print("Value check - " + str(self.actuator.value))
+        #print("Value check - " + str(self.actuator.value))
         self.sendNotification()
         return True
     
@@ -41,11 +41,12 @@ class SensorDataManager:
             logging.info(self.actuator.getName()+"Temperature: \nTime: "+str(self.actuator.timestamp)+" Value :"+str(self.actuator.getValue()))
             mail = SmtpClientConnector()
             #Creating mail body text
-            data = "Reading from:"+self.actuator.getName()+ "Time: "+str(self.actuator.timestamp)+"\ncurrent : "+str(self.actuator.getValue()) +"\nAverage :"+str(self.actuator.getAverageValue())+"\nSamples :"+str(self.actuator.readings_number)+"\nMin: "+str(self.actuator.min_value)+"\nMax :"+str(self.actuator.max_value)
-            mail.publishMessage("Temperature Alert Python -"+self.actuator.getName(), data)
+            data = "Reading from:"+self.actuator.getName()+ "\nTime: "+str(self.actuator.timestamp)+"\ncurrent : "+str(self.actuator.getValue()) +"\nAverage :"+str(self.actuator.getAverageValue())+"\nSamples :"+str(self.actuator.readings_number)+"\nMin: "+str(self.actuator.min_value)+"\nMax :"+str(self.actuator.max_value)
+            mail.publishMessage("Humidity Alert Python -"+self.actuator.getName(), data)
             logging.info('\nMail sent')
             return True
         except Exception as e:
             logging.info(e)
+            print(e)
             #If the mailing fails, the method returns false
             return False

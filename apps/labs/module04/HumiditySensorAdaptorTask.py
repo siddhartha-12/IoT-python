@@ -26,5 +26,6 @@ class HumiditySensorAdaptorTask:
     
     def pushData(self):
         self.sdm.hadleSensorData(self.sensorData)
+        return True
     
    
