@@ -10,16 +10,18 @@ from _datetime import datetime
 class ActuatorData :
     #Default Constructor
     def __init__(self):
-        self.max_value = 0
-        self.min_value = 0
-        self.readings_number = 0
-        self.total_value = 0
-        self.timestamp = str(datetime.now())
-        self.command = "All good"
-        self.value = 0.0
         self.name = ""
+        self.reading_number = 0
+        self.timestamp = str(datetime.now())
+        self.value = 0.0
+        self.min_value = 0
+        self.max_value = 0        
+        self.total_value = 0
+        self.command = "All good"        
         self.avgTemp = 0.0
     
+    def getTimeStamp(self):
+        return self.timestamp
     #Getter for reading counts    
     def getCount(self):
         return self.readings_number
