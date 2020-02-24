@@ -31,7 +31,9 @@ class PersistenceUtil:
             if(new_message['data']!=1):
                 logging.info("New Actuator Reading Received with ID \n" + str(new_message['data']))
                 #logging.info("New Actuator Data Received - " + adj )
-                ad = DataUtil.toActuatorDataFromJson(self, adj)
+                jdata = db.get(new_message['data'])
+                logging.info("data - >"+jdata)
+                ad = DataUtil.toActuatorDataFromJson(self, jdata)
                 ActuatorDataListener.onActuatorMessage(ad)
         
     def writeSensorToDataDbms(self,SensorData):
