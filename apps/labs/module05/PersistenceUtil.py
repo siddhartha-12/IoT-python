@@ -11,8 +11,8 @@ from labs.common.ActuatorDataListener import ActuatorDataListener
 
 class PersistenceUtil:
     def __init__(self):
-        self.host = "127.0.0.1"
-        self.port = 6379
+        self.host = "redis-11821.c114.us-east-1-4.ec2.cloud.redislabs.com"
+        self.port = 11821
         self.auth = "connected2020"
         
     def registerSensorDataDbmsListener(self):

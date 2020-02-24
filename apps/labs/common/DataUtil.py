@@ -34,7 +34,7 @@ class DataUtil:
         act.value = data['current']
         act.command = data['command']
         act.min_value = data['min_value']
-        act.max_value = data['max_Value']
+        act.max_value = data['max_value']
         act.total_value = data['total_value']
         act.avgTemp = data['avgTemp']
         act.timestamp = data['timestamp']

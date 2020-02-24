@@ -20,7 +20,7 @@ class MultiSensorAdaptor :
         i = 0
         self.sreader.objectLoader()
         putil =PersistenceUtil()
-        while(i<5):
+        while(i<1):
             sensorRead = self.sreader.readSensorValue()
             #logging.info("Sending data to putil")
             putil.writeSensorToDataDbms(sensorRead)          
