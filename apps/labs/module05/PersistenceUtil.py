@@ -8,7 +8,7 @@ from labs.common.SensorData import SensorData
 from labs.common.DataUtil import DataUtil
 import redis,logging
 from labs.common.ActuatorDataListener import ActuatorDataListener
-
+from time import sleep
 class PersistenceUtil:
     def __init__(self):
         self.host = "redis-11821.c114.us-east-1-4.ec2.cloud.redislabs.com"
@@ -31,6 +31,7 @@ class PersistenceUtil:
             if(new_message['data']!=1):
                 logging.info("New Actuator Reading Received with ID \n" + str(new_message['data']))
                 #logging.info("New Actuator Data Received - " + adj )
+                sleep(.005)
                 jdata = db.get(new_message['data'])
                 logging.info("data - >"+jdata)
                 ad = DataUtil.toActuatorDataFromJson(self, jdata)
