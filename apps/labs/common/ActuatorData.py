@@ -60,7 +60,7 @@ class ActuatorData :
     def addValue(self,current):
         self.value = current
         self.timestamp = str(datetime.now());
-        self.readings_number += 1
+        self.reading_number += 1
         if(self.total_value != 0):
             self.total_value += current
             

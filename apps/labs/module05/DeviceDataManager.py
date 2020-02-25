@@ -17,7 +17,7 @@ class DeviceDataManager:
         self.config.loadConfig("../../../config/ConnectedDevicesConfig.props")
         self.threshold = float(self.config.getValue("device", "nominalTemp"))
         self.actuatorOP = MultiActuatorAdaptor.getInstance()
-
+#Creating multiThreaded environment
     def run(self):
         t1 = Thread(target=self.sensorAdaptor.getSensorData)
         #logging.info("Running t1")

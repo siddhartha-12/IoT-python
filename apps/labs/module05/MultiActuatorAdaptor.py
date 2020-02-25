@@ -24,6 +24,7 @@ class MultiActuatorAdaptor:
     def runListener(self):
         adl = ActuatorDataListener.ActuatorDataListener()
         pu = PersistenceUtil.PersistenceUtil()
+        logging.info("Starting App \ nPersistenceUtil Created and Registered ")
         pu.registerActuatorDataDbmsListener(adl)
                   
         

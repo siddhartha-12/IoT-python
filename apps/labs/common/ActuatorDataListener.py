@@ -12,5 +12,6 @@ class ActuatorDataListener:
         #logging.info("Adaptor data -> ")
         #logging.info(ActuatorData)
         MultiActuatorAdaptor.updateActuator(ActuatorData)
+        return True
         
         

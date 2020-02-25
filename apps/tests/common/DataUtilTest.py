@@ -1,6 +1,8 @@
 import unittest
-
-
+from labs.common.SensorData import SensorData
+from labs.common.DataUtil import DataUtil
+from labs.common.ActuatorData import ActuatorData
+import logging
 """
 Test class for all requisite DataUtil functionality.
 
@@ -21,6 +23,14 @@ class DataUtilTest(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.du = DataUtil()
+		self.sd = SensorData()
+		self.sd.addValue(15)
+		self.sd.setName("Test")
+		self.ad =ActuatorData()
+		self.ad.addValue(44)
+		self.ad.setName("Test")
+		self.ad.setCommand("Test")
 		pass
 
 	"""
@@ -35,6 +45,36 @@ class DataUtilTest(unittest.TestCase):
 	"""
 	def testSomething(self):
 		pass
+	
+	'@Test'
+	def testCheckJsonData(self):
+		jstring = self.du.toJsonFromSensorData(self.sd)
+		#print(jstring)
+		sd1  = self.du.toSensorDataFromJson(jstring)
+		
+		#print(str(self.sd.getCurrentValue()))
+		#print(str(sd1.getCurrentValue()))
+		self.assertTrue(self.sd.getCount()==sd1.getCount(), "count does not match")
+		self.assertTrue(self.sd.getCurrentValue()==sd1.getCurrentValue(), "current does not match")
+		pass
+	
+	'@Test'
+	def testCheckActuatorData(self):
+		jstring = self.du.toJsonFromActuatorData(self.ad)
+		
+	
+	'@Test'
+	def testtoActuatorDataFromJsonFile(self):
+		self.assertTrue(self.du.toActuatorDataFromJsonFile(), "File to actuator failed")
+		pass
+	'@Test'
+	def testwriteActuatorDataToFile(self):
+		self.assertTrue(self.du.writeActuatorDataToFile(self.ad), "File to actuator failed")
+		pass
+	'@Test'
+	def testwriteSensorDataToFile(self):
+		self.assertTrue(self.du.toActuatorDataFromJsonFile(), "File to actuator failed")
+		pass    
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']

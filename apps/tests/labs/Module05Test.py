@@ -1,5 +1,10 @@
 import unittest
+from labs.module05.SenseHatLedActivator import SenseHatLedActivator
 
+from labs.common.ActuatorData import ActuatorData
+from labs.module05.HumiditySensorAdaptorTask import HumiditySensorAdaptorTask
+from labs.module05.PersistenceUtil import PersistenceUtil
+from labs.common.SensorData import SensorData
 
 """
 Test class for all requisite Module05 functionality.
@@ -13,6 +18,7 @@ Instructions:
 
 Please note: While some example test cases may be provided, you must write your own for the class.
 """
+import sense_hat
 class Module05Test(unittest.TestCase):
 
 	"""
@@ -21,6 +27,14 @@ class Module05Test(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		
+		self.ac = ActuatorData()
+		self.ac.addValue(15)
+		self.sensor = SensorData()
+		self.sensor.addValue(15)
+		self.hsa = HumiditySensorAdaptorTask()
+		self.hsa.objectLoader()
+		self.pu = PersistenceUtil()
 		pass
 
 	"""
@@ -33,8 +47,24 @@ class Module05Test(unittest.TestCase):
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
+	def testSenseHatActivator(self):
+		hat = SenseHatLedActivator()
+		self.assertTrue(hat.updateLed("Test"),"Led Update Failed")
 		pass
+	
+	def testSensorData(self):
+		a = self.hsa.readSensorValue()
+		self.assertGreaterEqual(a.current, 0, "Issue with sensor")
+		pass
+	
+	def testWriteActuator(self):
+		self.assertTrue(self.pu.writeActuatorToDataDbms(self.ac))
+		pass
+ 	
+	def testWriteSensor(self):
+		self.assertTrue(self.pu.writeSensorToDataDbms(self.sensor))
+		pass
+		
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']

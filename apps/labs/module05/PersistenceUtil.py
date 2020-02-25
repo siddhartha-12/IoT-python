@@ -19,7 +19,7 @@ class PersistenceUtil:
         db = redis.StrictRedis(host=self.host, port=self.port, password=self.auth, decode_responses=True)
         dbs = db.pubsub()
         dbs.subscribe("Sensor")
-        
+        return True
     def registerActuatorDataDbmsListener(self,ActuatorDataListener):
         db = redis.StrictRedis(host=self.host, port=self.port, password=self.auth, decode_responses=True)
         dbs = db.pubsub()
@@ -31,22 +31,25 @@ class PersistenceUtil:
             if(new_message['data']!=1):
                 logging.info("New Actuator Reading Received with ID \n" + str(new_message['data']))
                 #logging.info("New Actuator Data Received - " + adj )
-                sleep(.005)
+                sleep(.5)
                 jdata = db.get(new_message['data'])
                 logging.info("data - >"+jdata)
                 ad = DataUtil.toActuatorDataFromJson(self, jdata)
                 ActuatorDataListener.onActuatorMessage(ad)
-        
+        return True
     def writeSensorToDataDbms(self,SensorData):
         dbData = DataUtil.toJsonFromSensorData(SensorData)
         r = redis.StrictRedis(host=self.host, port=self.port, password=self.auth, decode_responses=True)
         r.set("Sensor"+SensorData.getTimeStamp(),dbData)
         r.publish("Sensor", "Sensor"+SensorData.getTimeStamp())
         #logging.info("Sending data to DB")    
-        
+        r.close()
+        return True
     def writeActuatorToDataDbms(self,ActuatorData):
-        dbData = DataUtil.toJsonFromSensorData(SensorData)
+        dbData = DataUtil.toJsonFromActuatorData(self, ActuatorData)
         r = redis.StrictRedis(host=self.host, port=self.port, password=self.auth, decode_responses=True)
-        #r.set(SensorData.getTimeStamp()+"- Sensor",dbData)
+        r.set(ActuatorData.getTimeStamp()+"- Actuator",dbData)
         r.publish("Actuator", dbData)
-        #logging.info("Sending data to DB") 
+        #logging.info("Sending data to DB")
+        r.close() 
+        return True
