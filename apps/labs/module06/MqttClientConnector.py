@@ -26,16 +26,19 @@ class MqttClientConnector:
         
     def connect(self):
         self.client.connect(self.host, self.port)  
+        return True
     
     def publishActuatorCommand(self,ActuatorData,qosq):
-        message = DataUtil.toJsonFromActuatorData(ActuatorData)
+        message = ActuatorData
         self.client.publish("Connected-Device/Actuator_Data", message, qos=qosq)
         logging.info("Actuator Data published to - >",)
+        return True
     
     def publishSensorData(self,SensorData,qosq):
-        message = SensorData
+        message = SensorData 
         self.client.publish("Siddhartha/Connected-Device/Sensor_Data", message, qos=qosq)
         logging.info("Sensor Data published to - >")
+        return True
     
     def subscribeToActuatorCommands(self,ActuatorDataListener):
         return True
@@ -53,8 +56,10 @@ class MqttClientConnector:
     
     def registerSensorDataListener(self,SensorDataListener):
         return True
+    
     def clientClose(self):
         self.client.disconnect()
+        return True
         
     
     

@@ -13,8 +13,6 @@ class MultiSensorAdaptor :
     def __init__(self):
         self.sreader = HumiditySensorAdaptorTask() 
         #self.ireader = I2CSensorAdaptorTask()
-        
-
     #Fetch current readings from the sensor
     def getSensorData(self):
         i = 0

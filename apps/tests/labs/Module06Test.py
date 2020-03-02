@@ -13,6 +13,12 @@ Instructions:
 
 Please note: While some example test cases may be provided, you must write your own for the class.
 """
+from labs.module05.DeviceDataManager import DeviceDataManager
+from labs.module06.MqttClientConnector import MqttClientConnector
+from labs.common.SensorData import SensorData
+from labs.common.ActuatorData import ActuatorData
+from paho.mqtt.client import MQTTMessage
+
 class Module06Test(unittest.TestCase):
 
 	"""
@@ -21,6 +27,13 @@ class Module06Test(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.ddm = DeviceDataManager();
+		self.ddm.actuator.addValue(15)
+		self.mqt = MqttClientConnector();
+		self.sd = SensorData();
+		self.sd.addValue(14)
+		mm = MQTTMessage()
+		mm.payload = "ss" 
 		pass
 
 	"""
@@ -33,7 +46,27 @@ class Module06Test(unittest.TestCase):
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
+
+	def testconnect(self):
+		self.assertTrue(self.mqt.connect(), "Connection Failed")
+		pass
+	
+# 	def testpublishActuatorCommand(self):
+# 		ac = ActuatorData();
+# 		ac.addValue(14)
+# 		self.assertTrue(self.mqt.publishActuatorCommand(ac,1), "publishActuator Failed")
+# 		pass
+	
+	def testpublishSensorData(self):
+		self.assertTrue(self.mqt.publishSensorData(self.sd, 1), "publishSensor Failed")
+		pass
+	
+	def testMessageReceived(self):
+		self.assertTrue(self.mqt.MessageReceived(MQTTMessage), "Message Failed")
+		pass
+	
+	def testClientClose(self):
+		self.assertTrue(self.mqt.clientClose(), "Client connection close Failed")
 		pass
 
 if __name__ == "__main__":

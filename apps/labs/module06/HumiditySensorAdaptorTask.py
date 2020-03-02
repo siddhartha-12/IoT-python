@@ -23,10 +23,3 @@ class HumiditySensorAdaptorTask:
         humidity = self.sensor.get_humidity()
         self.sensorData.addValue(humidity)
         return self.sensorData
-    #Method to push the data to sensorDataManager
-        
-#     def pushData(self):
-#         self.sdm.hadleSensorData(self.sensorData)
-#         return True
-    
-   
