@@ -13,14 +13,16 @@ Instructions:
 
 Please note: While some example test cases may be provided, you must write your own for the class.
 """
-class Module07Test(unittest.TestCase):
+from labs.module07.CoapClientConnector import CoapClientConnector
 
+class Module07Test(unittest.TestCase):
 	"""
 	Use this to setup your tests. This is where you may want to load configuration
 	information (if needed), initialize class-scoped variables, create class-scoped
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.ccc = CoapClientConnector()
 		pass
 
 	"""
@@ -33,9 +35,25 @@ class Module07Test(unittest.TestCase):
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
-		pass
-
+	def testSend(self):
+		message = "Test"
+		self.assertTrue(self.ccc.send(message), "Message issues")
+	
+	def testPut(self):
+		message = "Test"
+		self.assertTrue(self.ccc.put(message), "put issues")
+	
+	def testGet(self):
+		message = "Test"
+		self.assertTrue(self.ccc.get(), "get issues")	
+	
+	def testPost(self):
+		message = "Test"
+		self.assertTrue(self.ccc.put(message), "put issues")
+	
+	def testDelete(self):
+		message = "Test"
+		self.assertTrue(self.ccc.delete(), "delete issues")
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']
 	unittest.main()
