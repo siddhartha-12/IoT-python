@@ -7,7 +7,7 @@ from labs.module08.MqttClientConnector import MqttClientConnector
 import logging
 #Entry level script
 # Starts the application
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)#Initiating default logger
 mcc = MqttClientConnector();
 #setting the thread and executing
 mcc.connectMqtt()
