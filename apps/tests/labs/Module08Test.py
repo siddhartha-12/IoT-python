@@ -1,5 +1,6 @@
 import unittest
-
+from labs.module08.MqttClientConnector import MqttClientConnector
+import paho.mqtt.client as mqtt
 
 """
 Test class for all requisite Module08 functionality.
@@ -21,6 +22,7 @@ class Module08Test(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.mcc = MqttClientConnector();
 		pass
 
 	"""
@@ -33,7 +35,14 @@ class Module08Test(unittest.TestCase):
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
+	def testMQTTConnect(self):		
+		self.assertEqual(self.mcc.mqttc.connect("mqtt.eclipse.org", 1883, 60),0,"Client connected")
+		self.mcc.mqttc.disconnect(None, None), 0,"Client Disconnected"
+		pass
+	
+	def testMQTTdisconnect(self):
+		self.mcc.mqttc.connect("mqtt.eclipse.org", 1883, 60)
+		self.assertEqual(self.mcc.mqttc.disconnect(None, None), 0,"Client Disconnected")
 		pass
 
 if __name__ == "__main__":
