@@ -1,7 +1,5 @@
 import unittest
 from labs.module08.MqttClientConnector import MqttClientConnector
-import paho.mqtt.client as mqtt
-
 """
 Test class for all requisite Module08 functionality.
 
