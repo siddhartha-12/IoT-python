@@ -1,5 +1,9 @@
-import logging
+'''
+Created on Jan 30, 2020
 
+@author: Siddhartha
+'''
+import logging
 from labs.module06.MultiSensorAdaptor import MultiSensorAdaptor
 from labs.common.SensorData import SensorData
 from threading import Thread
@@ -7,7 +11,6 @@ from labs.module06.MqttClientConnector import MqttClientConnector
 import logging
 from time import sleep
 from labs.common.DataUtil import DataUtil
-
 class DeviceDataManager:
     #Default Constructor
     def __init__(self):
@@ -26,7 +29,6 @@ class DeviceDataManager:
             self.mqtt.publishSensorData(message,1)
             i+=1
             sleep(5)
-        
         while(i<4):
             logging.info("Publishing data using QoS2")
             message = DataUtil.toJsonFromSensorData(self.sensorAdaptor.getSensorData())
@@ -47,6 +49,4 @@ class DeviceDataManager:
         self.actuator.total_value = SensorData.total_value
         self.actuator.setName(SensorData.getName())      
         self.actuatorOP.updateActuator(self.actuator)
-        #print("Value check - " + str(self.actuator.value))
-        #self.sendNotification()
         return True

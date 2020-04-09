@@ -6,11 +6,9 @@ Created on Feb 29, 2020
 import paho.mqtt.client as mqtt
 import logging
 class MqttClientConnector:
-    
     mqttc = None # MQTT client Property
     def __init__(self):
-        self.mqttc = mqtt.Client()
-        
+        self.mqttc = mqtt.Client()  
     # Callback function for connect    
     def on_connect(self,mqttc, obj, flags, rc):
         logging.info("Connected to broker")
@@ -37,8 +35,6 @@ class MqttClientConnector:
         self.mqttc.on_connect = self.on_connect
         self.mqttc.on_publish = self.on_publish
         self.mqttc.on_subscribe = self.on_subscribe
-        # Uncomment to enable debug messages
-        # mqttc.on_log = on_log
         self.mqttc.connect("mqtt.eclipse.org", 1883, 60)
         self.mqttc.subscribe("ActuatorData/change", 0)
         self.mqttc.loop_forever()

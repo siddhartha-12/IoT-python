@@ -3,11 +3,7 @@ from labs.module06.HumiditySensorAdaptorTask import HumiditySensorAdaptorTask
 from time import sleep
 import logging
 from labs.module06.MqttClientConnector import MqttClientConnector
-
-
-
 #Threaded Class
-
 class MultiSensorAdaptor :
     #Default Constructor
     def __init__(self):

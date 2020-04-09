@@ -3,7 +3,6 @@ Created on Feb 29, 2020
 
 @author: Siddhartha
 '''
-#!/usr/bin/env python
 import getopt
 import socket
 import sys
@@ -15,7 +14,6 @@ from coapthon.client.helperclient import HelperClient
 from coapthon.messages import response
 
 class CoapClientConnector:
-
     def __init__(self):
         config = ConfigUtil();
         config.loadConfig("../../../config/ConnectedDevicesConfig.props")
@@ -46,7 +44,6 @@ class CoapClientConnector:
             return True
         except:
             return False
-    
         #Method to call put method for coap
     def put(self,data):
         try:
@@ -55,12 +52,12 @@ class CoapClientConnector:
             return True
         except:
             return False
-        
     #Method to call get method for coap
     def get(self):
         try:
             response = self.client.get(self.path)
             logging.info("Received Response GET-> " +response.pretty_print())
+            logging.info(response.Message.payload)
             return True
         except:
             return False
@@ -72,7 +69,3 @@ class CoapClientConnector:
             return True
         except:
             return False
-            
-        
-        
-    

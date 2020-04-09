@@ -6,22 +6,17 @@ Created on Feb 29, 2020
 from labs.common.ActuatorData import ActuatorData
 from labs.common.SensorData import SensorData
 from labs.common.ConfigUtil import ConfigUtil
-#from labs.common.ActuatorDataListener import ActuatorDataListener
-#from labs.common import SensorDataListener
 from paho.mqtt.client import MQTTMessage
 import logging
 import paho.mqtt.client as paho
 from labs.common.DataUtil import DataUtil
-
-
 class MqttClientConnector:
     def __init__(self):
         config = ConfigUtil();
         config.loadConfig("../../../config/ConnectedDevicesConfig.props")
         self.host = config.getValue("mqtt.cloud", "host")
         self.port = int(config.getValue("mqtt.gateway", "port"))
-        self.client = paho.Client("SiddharthaIoTp")
-        
+        self.client = paho.Client("SiddharthaIoTp")     
 #      /***
 #      * Method for initializationa and make Mqtt Client connection with the broker.
 #      * Setting callback to self as the CallBack class has been extended to this class

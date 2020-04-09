@@ -1,5 +1,9 @@
-import logging
+'''
+Created on Feb 29, 2020
 
+@author: Siddhartha
+'''
+import logging
 from labs.module07.MultiSensorAdaptor import MultiSensorAdaptor
 from labs.common.SensorData import SensorData
 from threading import Thread
