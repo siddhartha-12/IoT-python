@@ -5,12 +5,9 @@ Created on Feb 21, 2020
 '''
 from labs.common.ActuatorData import ActuatorData
 from labs.common.SensorData  import SensorData  
-
 import json
 import logging
-
-
-
+from labs.common.PlantDeviceSensorData import PlantDeviceSensorData
 
 class DataUtil:
     
@@ -62,4 +59,14 @@ class DataUtil:
     def writeActuatorDataToFile(self,ActuatorData):
         return True
     def writeSensorDataToFile(self,SensorData):
-        return True    
+        return True
+    
+    @staticmethod
+    def toJsonFromPlantDeviceSensorData(plantDeviceSensorData):
+        a = json.dumps(plantDeviceSensorData.__dict__)
+        logging.info(a)
+        return a
+        
+        
+        
+        

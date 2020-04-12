@@ -6,9 +6,10 @@ Created on Apr 9, 2020
 import logging
 from project import sysMemUtilTask,sysCpuUtilTask
 
-def getSystemUtil():
+def getSystemMemoryUtil():
     mem = sysMemUtilTask.getDataFromMachine()
+    return (str(mem))
+
+def getSystemCpuUtil():
     cpu = sysCpuUtilTask.getDataFromMachine()
-    logging.info("Memory Utilization :" +str(mem) +"%") #Logging memory Utilization
-    logging.info("Cpu Utilization    :"+ str(cpu) +"%") #Logging CPU utilization
-    return ("\"constrainMemory\":"+str(mem) + "," + "\"constrainCpu\":"+str(cpu))
+    return (str(cpu))

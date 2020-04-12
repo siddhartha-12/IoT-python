@@ -8,7 +8,9 @@ from project.ArduinoManager import ArduinoManager
 from project import SystemPerformanceAdaptor,MqttClientConnector
 import threading
 from time import sleep
-from pip._internal import self_outdated_check
+from labs.common.PlantDeviceSensorData import PlantDeviceSensorData
+from labs.common.DataUtil import DataUtil
+
 
 class DeviceDataManager():
     def __init__(self):
@@ -16,6 +18,7 @@ class DeviceDataManager():
         self.ard = ArduinoManager.getInstance()
         self.mqttP = MqttClientConnector.MqttClientConnector()
         self.mqttS = MqttClientConnector.MqttClientConnector()
+        self.pdsd = PlantDeviceSensorData()
         
     def run(self):
         t1 = threading.Thread(target=self.dataPublish,args=())
@@ -23,22 +26,29 @@ class DeviceDataManager():
         t1.start()
         t2.start()
         
-    
     def dataPublish(self):
-        logging.info("------------Starting sensor reader-----------------")
+        logging.info("------------------Starting sensor reader---------------\n")
         while(True):
-            arduino = self.ard.getArduinoValues()
-            logging.info("Data received from arduino " + str(arduino))
-            sysUtil = SystemPerformanceAdaptor.getSystemUtil()
-            logging.info("Constrain Device System Util " + sysUtil)
-            json = arduino + "," + sysUtil
-            logging.info("Ready to send json -> " + json)
+            self.pdsd.setLdr(self.ard.getLdrValues())
+            logging.info("LDR data received from arduino " + str(self.pdsd.getLdr()))
+            self.pdsd.setSoilMoisture(self.ard.getSoilMoistureValues())
+            logging.info("Soil Moisture data received from arduino " + str(self.pdsd.getLdr()))
+            self.pdsd.setConstrainMemoryUtil(SystemPerformanceAdaptor.getSystemMemoryUtil())
+            logging.info("Constrain Device System Memory Util " + self.pdsd.getConstrainMemoryUtil())
+            self.pdsd.setConstrainCpuUtil(SystemPerformanceAdaptor.getSystemCpuUtil())
+            logging.info("Constrain Device System CPU Util " + self.pdsd.getConstrainCpuUtil())
+            self.pdsd.setHumidity(self.ard.getHumidity())
+            logging.info("Humidity data received " + str(self.pdsd.getHumidity()))
+            self.pdsd.setTemperature(self.ard.getTemperature())
+            logging.info("Temperature data received " + str(self.pdsd.getTemperature()))
+            json = DataUtil.toJsonFromPlantDeviceSensorData(self.pdsd)
+            logging.info("Sending data to gateway\n"+json)
             self.mqttP.publishMqtt(json)
             logging.info("Data sent to broker")
-            sleep(60)
+            sleep(120)
     
     def actuatorCommand(self):
-        logging.info("------------------Starting MQTT subscriber---------------")
+        logging.info("------------------Starting MQTT subscriber---------------\n")
         self.mqttS.subscribeMqtt()
         
         

@@ -6,7 +6,7 @@ Created on Apr 9, 2020
 import paho.mqtt.client as mqtt
 import logging
 from labs.common.ConfigUtil import ConfigUtil
-
+from project.ArduinoManager import ArduinoManager
 class MqttClientConnector:
     mqttc = None # MQTT client Property
     def __init__(self):
@@ -24,6 +24,8 @@ class MqttClientConnector:
     # Callback function for message arrival
     def on_message(self,mqttc, obj, msg):
         logging.info(msg.topic + " Actuator Value changed to " + msg.payload.decode("utf-8"))
+        self.ard = ArduinoManager.getInstance()
+        self.ard.servoCommand()
     # Callback function for publish
     def on_publish(self,mqttc, obj, mid):
         logging.info("mid: " + str(mid))
@@ -42,7 +44,7 @@ class MqttClientConnector:
         self.mqttc.on_publish = self.on_publish
         self.mqttc.on_subscribe = self.on_subscribe
         self.mqttc.connect(host,port , 60)
-        self.mqttc.subscribe("project/constrain/actuator", 0)
+        self.mqttc.subscribe("project/constraint/actuator", 1)
         self.mqttc.loop_forever()
     # Method for disconnecting the client  
     
@@ -54,7 +56,7 @@ class MqttClientConnector:
         self.mqttc.on_publish = self.on_publish
         self.mqttc.on_subscribe = self.on_subscribe
         self.mqttc.connect(host, port, 60)
-        self.mqttc.publish("project/constrain/sensor", message, 1)
+        self.mqttc.publish("project/constraint/sensor", message, 1)
         
 
     def clientDisconnect(self):

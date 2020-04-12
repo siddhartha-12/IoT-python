@@ -8,7 +8,7 @@ import serial as sl
 import logging
 from time import sleep
 from builtins import staticmethod
-
+from sense_hat import SenseHat
 class ArduinoManager():
     __instance = None
     @staticmethod 
@@ -23,10 +23,11 @@ class ArduinoManager():
         ArduinoManager.__instance = self
         self.portNumber = PortManager.getArduinoPort()
         self.ser = sl.Serial(self.portNumber,9600)
+        self.sensehat =  SenseHat()
         logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)
         logging.info("Sending Arduino Instance")
         
-    def getArduinoValues(self):
+    def getLdrValues(self):
         sleep(2)
         while(True):
             logging.info("Connecting to Arduino")        
@@ -34,7 +35,25 @@ class ArduinoManager():
             logging.info("Requested data from Arduino...waiting for response")
             data = self.ser.readline();
             return(str(data.decode("utf-8")).rstrip("\n\r"))
+    
+    def getSoilMoistureValues(self):
+        sleep(2)
+        while(True):
+            logging.info("Connecting to Arduino")        
+            self.ser.write(b'b') #Send data to arduino. Activate arduino read pin and write to serial  
+            logging.info("Requested data from Arduino...waiting for response")
+            data = self.ser.readline();
+            return(str(data.decode("utf-8")).rstrip("\n\r"))
             
-    def testMethod(self):
-        logging.info("msg")
+    def getTemperature(self):
+        return(self.sensehat.get_temperature())
+    
+    def getHumidity(self):
+        return(self.sensehat.get_humidity())
+    
+    def servoCommand(self):
+        logging.info("Issuing command to water")
+        self.ser.write(b's')
+        
+        
     
