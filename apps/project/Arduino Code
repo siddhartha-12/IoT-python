@@ -1,0 +1,66 @@
+#include <stdlib.h>
+#include <Servo.h> 
+Servo myservo;
+int pos = 0;
+const int ledPin = 13;
+const int ldrPin = A0;
+const int moisturePin = A3;
+String incomingData="";
+void setup() {
+Serial.begin(9600);
+pinMode(ledPin, OUTPUT);
+pinMode(ldrPin, INPUT);
+pinMode(moisturePin, INPUT);
+Serial.begin(9600);
+myservo.attach(9);
+myservo.write(0);
+}
+
+void loop() {
+while(Serial.available())
+        {
+          delay(10);
+          char c= Serial.read();
+          incomingData += c; 
+        }
+         if(incomingData.length()>0){
+        }
+        if(incomingData == "a")
+        {
+          String strLdr = String(readLumens());
+          Serial.println(strLdr);
+        }
+        else if(incomingData == "b")
+        {
+          String strMoisture = String(readMoisture());
+          Serial.println(strMoisture);
+        }
+        else if(incomingData == "s")
+        {
+          for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees 
+          {                                  // in steps of 1 degree 
+            myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+            delay(10);                       // waits 15ms for the servo to reach the position 
+          } 
+          for(pos = 180; pos>=0; pos-=1)     // goes from 180 degrees to 0 degrees 
+          {                                
+            myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+            delay(10);             
+           }  
+              incomingData="";
+        }
+        }
+
+float readLumens()
+  {
+    float ldrStatus = analogRead(ldrPin);
+    float perLdr = (ldrStatus*100/1023);
+    return perLdr;
+  }
+
+float readMoisture()
+  {
+    float moisture = analogRead(moisturePin);
+    float correction = (1023-moisture)*100/1023;
+    return correction; 
+  }
