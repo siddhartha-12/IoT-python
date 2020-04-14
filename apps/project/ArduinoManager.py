@@ -11,6 +11,9 @@ from builtins import staticmethod
 from sense_hat import SenseHat
 class ArduinoManager():
     __instance = None
+    '''
+    Implementing Singleton to have a single instance of the arduino connection to avoid override and conflict
+    '''
     @staticmethod 
     def getInstance():
         """ Static access method. """
@@ -18,7 +21,7 @@ class ArduinoManager():
             logging.info("Creating first Arduino Manager instance")
             ArduinoManager()
         return ArduinoManager.__instance      
-    
+    #Constructor
     def __init__(self):
         ArduinoManager.__instance = self
         self.portNumber = PortManager.getArduinoPort()
@@ -26,7 +29,7 @@ class ArduinoManager():
         self.sensehat =  SenseHat()
         logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)
         logging.info("Sending Arduino Instance")
-        
+    #Method to get LDR values   
     def getLdrValues(self):
         sleep(2)
         while(True):
@@ -35,7 +38,7 @@ class ArduinoManager():
             logging.info("Requested data from Arduino...waiting for response")
             data = self.ser.readline();
             return(str(data.decode("utf-8")).rstrip("\n\r"))
-    
+    #Method to get Soil Moisture values
     def getSoilMoistureValues(self):
         sleep(2)
         while(True):
@@ -44,13 +47,13 @@ class ArduinoManager():
             logging.info("Requested data from Arduino...waiting for response")
             data = self.ser.readline();
             return(str(data.decode("utf-8")).rstrip("\n\r"))
-            
+    #Method to get Temperature value        
     def getTemperature(self):
         return(self.sensehat.get_temperature())
-    
+    #Method to get humidity values
     def getHumidity(self):
         return(self.sensehat.get_humidity())
-    
+    #Method to issue commands to Servo motor
     def servoCommand(self):
         logging.info("Issuing command to water")
         self.ser.write(b's')

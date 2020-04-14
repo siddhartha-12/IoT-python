@@ -11,21 +11,21 @@ from time import sleep
 from labs.common.PlantDeviceSensorData import PlantDeviceSensorData
 from labs.common.DataUtil import DataUtil
 
-
 class DeviceDataManager():
+    #Constructor
     def __init__(self):
         logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)
         self.ard = ArduinoManager.getInstance()
         self.mqttP = MqttClientConnector.MqttClientConnector()
         self.mqttS = MqttClientConnector.MqttClientConnector()
         self.pdsd = PlantDeviceSensorData()
-        
+    #App initialization method   
     def run(self):
         t1 = threading.Thread(target=self.dataPublish,args=())
         t2 = threading.Thread(target=self.actuatorCommand,args=())
         t1.start()
         t2.start()
-        
+    #Method to collect data from various sources and pushing it to mqtt    
     def dataPublish(self):
         logging.info("------------------Starting sensor reader---------------\n")
         while(True):
@@ -46,9 +46,7 @@ class DeviceDataManager():
             self.mqttP.publishMqtt(json)
             logging.info("Data sent to broker")
             sleep(120)
-    
+    #Method to start mqtt with Ubidots to losten for actuator command
     def actuatorCommand(self):
         logging.info("------------------Starting MQTT subscriber---------------\n")
-        self.mqttS.subscribeMqtt()
-        
-        
+        self.mqttS.subscribeMqtt()    

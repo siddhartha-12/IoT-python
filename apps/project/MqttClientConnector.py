@@ -35,7 +35,7 @@ class MqttClientConnector:
     # Callback function for logging
     def on_log(self,mqttc, obj, level, string):
         logging.info(string)
-    # Method for establishing MQTT connection
+    # Method for establishing subscribe MQTT connection
     def subscribeMqtt(self):
         host = self.config.getValue("mqtt.gateway", "host")
         port = 1883 #self.config.getValue("mqtt.gateway", "port")
@@ -46,8 +46,7 @@ class MqttClientConnector:
         self.mqttc.connect(host,port , 60)
         self.mqttc.subscribe("project/constraint/actuator", 1)
         self.mqttc.loop_forever()
-    # Method for disconnecting the client  
-    
+    # Method for publishing mqtt client 
     def publishMqtt(self,message):
         host = self.config.getValue("mqtt.gateway", "host")
         port = 1883 #self.config.getValue("mqtt.gateway", "port")
@@ -57,8 +56,7 @@ class MqttClientConnector:
         self.mqttc.on_subscribe = self.on_subscribe
         self.mqttc.connect(host, port, 60)
         self.mqttc.publish("project/constraint/sensor", message, 1)
-        
-
+    # Method for disconnecting the client
     def clientDisconnect(self):
         self.mqttc.disconnect(None, None)
         return True
