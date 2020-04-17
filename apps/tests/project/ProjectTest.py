@@ -1,5 +1,7 @@
 import unittest
-
+from project.ArduinoManager import ArduinoManager
+from project import SystemPerformanceAdaptor,MqttClientConnector
+from project.PortManager import PortManager
 
 """
 Test class for all requisite Project functionality.
@@ -21,6 +23,8 @@ class ProjectTest(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.ard = ArduinoManager.getInstance()
+		self.mqttP = MqttClientConnector.MqttClientConnector()
 		pass
 
 	"""
@@ -33,8 +37,35 @@ class ProjectTest(unittest.TestCase):
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
+	def testArduinoInstance(self):
+		self.assertIsNotNone(ArduinoManager.getInstance(), "Instance fetch failed") 
 		pass
+	def testGetLdrValues(self):
+		self.assertIsNotNone(self.ard.getLdrValues(), "LDR value failed")
+		pass
+	def testGetSoilMoistureValues(self):
+		self.assertIsNotNone(self.ard.getSoilMoistureValues(), "moisture value failed")
+		pass
+	def testGetTemperature(self):
+		self.assertIsNotNone(self.ard.getHumidity(), "temperature value failed")
+		pass
+	def testGetHumidity(self):
+		self.assertIsNotNone(self.ard.getTemperature(), "Humidity value failed")
+		pass
+	def testServoCommand(self):
+		self.assertTrue(self.ard.servoCommand(), "Servo value failed")
+		pass
+	def testGetCpuUtil(self):
+		self.assertIsNotNone(SystemPerformanceAdaptor.getSystemCpuUtil(), "Cpu Util value failed")
+		pass
+	def testGetMemoryUtil(self):
+		self.assertIsNotNone(SystemPerformanceAdaptor.getSystemMemoryUtil(), "Memory Util value failed")
+		pass
+	def testGetPorts(self):
+		self.assertIsNotNone(PortManager.getArduinoPort(), "Did not find ports value failed")
+		pass
+
+	
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']

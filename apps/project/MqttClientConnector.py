@@ -49,13 +49,23 @@ class MqttClientConnector:
     # Method for publishing mqtt client 
     def publishMqtt(self,message):
         host = self.config.getValue("mqtt.gateway", "host")
-        port = 1883 #self.config.getValue("mqtt.gateway", "port")
+        port = 1883
         self.mqttc.on_message = self.on_message
         self.mqttc.on_connect = self.on_connect
         self.mqttc.on_publish = self.on_publish
         self.mqttc.on_subscribe = self.on_subscribe
         self.mqttc.connect(host, port, 60)
         self.mqttc.publish("project/constraint/sensor", message, 1)
+        # Method for disconnecting the client
+    def clientConnect(self):
+        host = self.config.getValue("mqtt.gateway", "host")
+        port = 1883
+        self.mqttc.on_message = self.on_message
+        self.mqttc.on_connect = self.on_connect
+        self.mqttc.on_publish = self.on_publish
+        self.mqttc.on_subscribe = self.on_subscribe
+        self.mqttc.connect(host, port, 60)
+        return True
     # Method for disconnecting the client
     def clientDisconnect(self):
         self.mqttc.disconnect(None, None)

@@ -57,6 +57,7 @@ class ArduinoManager():
     def servoCommand(self):
         logging.info("Issuing command to water")
         self.ser.write(b's')
+        return True
         
         
     
