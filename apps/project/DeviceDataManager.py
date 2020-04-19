@@ -32,7 +32,7 @@ class DeviceDataManager():
             self.pdsd.setLdr(self.ard.getLdrValues())
             logging.info("LDR data received from arduino " + str(self.pdsd.getLdr()))
             self.pdsd.setSoilMoisture(self.ard.getSoilMoistureValues())
-            logging.info("Soil Moisture data received from arduino " + str(self.pdsd.getLdr()))
+            logging.info("Soil Moisture data received from arduino " + str(self.pdsd.getSoilMoisture()))
             self.pdsd.setConstrainMemoryUtil(SystemPerformanceAdaptor.getSystemMemoryUtil())
             logging.info("Constrain Device System Memory Util " + self.pdsd.getConstrainMemoryUtil())
             self.pdsd.setConstrainCpuUtil(SystemPerformanceAdaptor.getSystemCpuUtil())
